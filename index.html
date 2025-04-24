@@ -29,6 +29,8 @@ p.main {
   font-family: GD Sage,Playfair Display,Georgia,serif;
   font-size: 32px;
   text-align: center;
+  user-select:none;
+  display:inline-block;
 }
 
 h1 span{display:inline-block}
@@ -59,7 +61,7 @@ h1 span{display:inline-block}
 
 <h1 class="first" id="banner">George Barnes</h1>
 
-<p class="main">Launching once my degree is finished in June :)</p>
+<p class="main" id="banner">Launching once my degree is finished in June :)</p>
 
 
 <script>
@@ -86,7 +88,7 @@ h1 span{display:inline-block}
 
     letter.classList.add(effect);
     letter.addEventListener('animationend', ()=>letter.classList.remove(effect), {once:true});
-  }, 600);
+  }, 1200);
 })();
 </script>
 </body>
