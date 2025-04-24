@@ -1,249 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Launch Page</title>
 <style>
-body {
-  background-image: 
-    linear-gradient(rgba(0,0,0,.10), rgba(0,0,0,.10)),
-    linear-gradient(135deg,rgba(0, 204, 255, .07),rgba(255, 0, 204, .07)),
+body{
+  background-image:
+    linear-gradient(rgba(0,0,0,.10),rgba(0,0,0,.10)),
+    linear-gradient(135deg,rgba(0,204,255,.07),rgba(255,0,204,.07)),
     url('assets/background.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-size:100% 100%;
+  margin:0;
 }
-h1.first {
-  padding-top: 10%;
-  color: white;
-  font-family: GD Sherpa,Montserrat,sans-serif;
-  font-weight: 900;
-  letter-spacing: .12em;
-  font-size: 64px;
-  text-transform: uppercase;
-  text-align: center;
+h1.first{
+  padding-top:10%;
+  color:#fff;
+  font-family:"GD Sherpa",Montserrat,sans-serif;
+  font-weight:900;
+  letter-spacing:.12em;
+  font-size:64px;
+  text-transform:uppercase;
+  text-align:center;
   user-select:none;
 }
-p.main {
-  padding-top: 25%;
-  /*color:#6d6d6d;*/
-  color: white;
-  font-weight: 400;
-  font-family: GD Sage,Playfair Display,Georgia,serif;
-  font-size: 32px;
-  text-align: center;
+p.main{
+  padding-top:25%;
+  color:#fff;
+  font-weight:400;
+  font-family:"GD Sage","Playfair Display",Georgia,serif;
+  font-size:32px;
+  text-align:center;
   user-select:none;
 }
-
-h1 span{display:inline-block; isolation:isolate;}
-p span{display:inline-block; isolation:isolate;}
-
-@keyframes jump{
-  0%   {transform:translateY(0)}
-  30%  {transform:translateY(-25%)}
-  60%  {transform:translateY(10%)}
-  100% {transform:translateY(0)}
-}
-.jump{
-  animation:jump .8s cubic-bezier(.25,.75,.5,1) forwards;
-}
-
-@keyframes flip{
-  0%   {transform:rotateY(0)}
-  30%  {transform:rotateY(180deg)}
-  60%  {transform:rotateY(360deg)}
-  100% {transform:rotateY(360deg)}
-}
-.flip{
-  animation:flip 1s ease-in-out forwards;
-}
-
-
-.rainbow-frame{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-
-@property --bar{
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 22px;
-}
-
-.rainbow-frame{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;                       
-}
-
+h1 span,p span{display:inline-block;isolation:isolate}
+.char{position:relative;display:inline-block;isolation:isolate}
+@keyframes jump{0%{transform:translateY(0)}30%{transform:translateY(-25%)}60%{transform:translateY(10%)}100%{transform:translateY(0)}}
+.jump{animation:jump .8s cubic-bezier(.25,.75,.5,1) forwards}
+@keyframes flip{0%{transform:rotateY(0)}30%{transform:rotateY(180deg)}60%{transform:rotateY(360deg)}100%{transform:rotateY(360deg)}}
+.flip{animation:flip 1s ease-in-out forwards}
+@property --bar{syntax:'<length>';inherits:false;initial-value:22px}
+.rainbow-frame{position:fixed;inset:0;pointer-events:none;z-index:0}
 .rainbow-frame::before{
   content:'';
   position:absolute;
   inset:0;
-  padding:var(--bar);              
-
+  padding:var(--bar);
   mask:
-      linear-gradient(to bottom , #000 0 65%, transparent 100%) top    /100% var(--bar) no-repeat,
-      linear-gradient(to left   , #000 0 65%, transparent 100%) right  /var(--bar) 100% no-repeat,
-      linear-gradient(to top    , #000 0 65%, transparent 100%) bottom /100% var(--bar) no-repeat,
-      linear-gradient(to right  , #000 0 65%, transparent 100%) left   /var(--bar) 100% no-repeat;
+    linear-gradient(to bottom,#000 0 40%,transparent 100%) top/100% var(--bar) no-repeat,
+    linear-gradient(to left,#000 0 40%,transparent 100%) right/var(--bar) 100% no-repeat,
+    linear-gradient(to top,#000 0 40%,transparent 100%) bottom/100% var(--bar) no-repeat,
+    linear-gradient(to right,#000 0 40%,transparent 100%) left/var(--bar) 100% no-repeat;
   mask-composite:add;
   -webkit-mask-composite:source-over;
-
   filter:blur(32px) saturate(120%);
   opacity:.45;
-
   background:
-  repeating-conic-gradient(
-      from var(--angle,0deg),
-      #ff375f  0deg  10deg,
-      #fe9647 10deg  20deg,
-      #ffe75a 20deg  30deg,
-      #34c759 30deg  40deg,
-      #0a84ff 40deg  50deg,
-      #bf5af2 50deg  60deg)   center/600% 600% no-repeat,
-  repeating-conic-gradient(
-      from calc(var(--angle,0deg) + 45deg),
-      #ff375f  0deg  10deg,
-      #fe9647 10deg  20deg,
-      #ffe75a 20deg  30deg,
-      #34c759 30deg  40deg,
-      #0a84ff 40deg  50deg,
-      #bf5af2 50deg  60deg)   center/600% 600% no-repeat;
-
-  animation:
-      drift   28s   linear        infinite,
-      swirl   60s   linear        infinite,
-      breathe 12s   ease-in-out   infinite;
+    repeating-conic-gradient(from var(--angle,0deg),
+      #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/600% 600% no-repeat,
+    repeating-conic-gradient(from calc(var(--angle,0deg)+45deg),
+      #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/600% 600% no-repeat;
+  animation:drift 28s linear infinite,swirl 60s linear infinite,breathe 12s ease-in-out infinite
 }
-
-@keyframes drift{
-  0%   {background-position:  0%   0%,  50%  50%;}
-  25%  {background-position:100%   0%, 150% -50%;}
-  50%  {background-position:100% 100%, 150%  50%;}
-  75%  {background-position:  0% 100%,  50% 150%;}
-  100% {background-position:  0%   0%,  50%  50%;}
-}
-
-@keyframes swirl{
-  to{ --angle:360deg; }
-}
-
-@keyframes breathe{
-  0%,100% {--bar:22px;}
-  50%     {--bar:34px;}
-}
-
-
-h1 span::after,
-p  span::after{
+@keyframes drift{0%{background-position:0% 0%,40% 60%}25%{background-position:100% 0%,140% -50%}50%{background-position:100% 100%,140% 50%}75%{background-position:0% 100%,40% 150%}100%{background-position:0% 0%,40% 60%}}
+@keyframes swirl{to{--angle:360deg}}
+@keyframes breathe{0%,100%{--bar:22px}50%{--bar:34px}}
+.char::after{
   content:'';
   position:absolute;
-  inset:-6px;               
-  border-radius:50%;        
-
+  inset:-6px;
+  max-width:2.5em;
+  max-height:2.5em;
+  border-radius:50%;
   background:
-     repeating-conic-gradient(
-        from var(--angle,0deg),
-        #ff375f  0deg  20deg,
-        #fe9647 20deg  40deg,
-        #ffe75a 40deg  60deg,
-        #34c759 60deg  80deg,
-        #0a84ff 80deg 100deg,
-        #bf5af2 100deg 120deg) center/300% 300% no-repeat,
-     repeating-conic-gradient(
-        from calc(var(--angle,0deg) + 45deg),
-        #ff375f  0deg  20deg,
-        #fe9647 20deg  40deg,
-        #ffe75a 40deg  60deg,
-        #34c759 60deg  80deg,
-        #0a84ff 80deg 100deg,
-        #bf5af2 100deg 120deg) center/300% 300% no-repeat;
-
-  filter:blur(6px);         
-  opacity:.55;              
-  z-index:-1;               
-
-  animation:
-      glowDrift 14s linear        infinite,
-      glowSpin  40s linear        infinite;
+    repeating-conic-gradient(from var(--angle,0deg),
+      #ff375f 0 20deg,#fe9647 20 40deg,#ffe75a 40 60deg,#34c759 60 80deg,
+      #0a84ff 80 100deg,#bf5af2 100 120deg) center/300% 300% no-repeat,
+    repeating-conic-gradient(from calc(var(--angle,0deg)+45deg),
+      #ff375f 0 20deg,#fe9647 20 40deg,#ffe75a 40 60deg,#34c759 60 80deg,
+      #0a84ff 80 100deg,#bf5af2 100 120deg) center/300% 300% no-repeat;
+  filter:blur(6px);
+  opacity:.55;
+  z-index:-1;
+  animation:glowDrift 14s linear infinite,glowSpin 40s linear infinite
 }
-
-@keyframes glowDrift{
-  0%   {background-position: 0% 0%, 40% 60%;}
-  50%  {background-position:100% 100%, 140% 160%;}
-  100% {background-position: 0% 0%, 40% 60%;}
-}
-
-@keyframes glowSpin{
-  to{ --angle:360deg; }
-}
-
+@keyframes glowDrift{0%{background-position:0% 0%,40% 60%}50%{background-position:100% 100%,140% 160%}100%{background-position:0% 0%,40% 60%}}
+@keyframes glowSpin{to{--angle:360deg}}
 </style>
-
 </head>
 <body>
 <div class="rainbow-frame" aria-hidden="true"></div>
-
 <h1 class="first" id="banner">George Barnes</h1>
-
 <p class="main" id="teaser">Launching once my degree is finished in June :)</p>
-
-
 <script>
-  (()=>{
-  const WEIGHT_BANNER = 1.25;
-  const WEIGHT_PARA   = 1;
-  const effects       = ['jump','flip'];
-
-  const bannerLetters = [];
-  const paraLetters   = [];
-
-  function wrapText(id, collectorArray){
-    const node = document.getElementById(id);
-    const txt  = node.textContent;
-    node.innerHTML = '';
-
+(()=>{
+  const WEIGHT_BANNER=1.25,WEIGHT_PARA=1,effects=['jump','flip'];
+  const bannerLetters=[],paraLetters=[];
+  function wrapText(id,arr){
+    const node=document.getElementById(id),txt=node.textContent;node.innerHTML='';
     for(const ch of txt){
-      if(ch === ' '){
-        node.appendChild(document.createTextNode(' '));
-      }else{
-        const span = document.createElement('span');
-        span.textContent = ch;
-        node.appendChild(span);
-        collectorArray.push(span);
-      }
+      if(ch===' '){node.appendChild(document.createTextNode(' '));continue}
+      const span=document.createElement('span');span.classList.add('char');span.textContent=ch;
+      node.appendChild(span);arr.push(span)
     }
   }
-
-  wrapText('banner', bannerLetters);
-  wrapText('teaser', paraLetters);
-
-  const rand     = arr => arr[Math.floor(Math.random() * arr.length)];
-  let   busy     = false;
-
+  wrapText('banner',bannerLetters);wrapText('teaser',paraLetters);
+  const rand=a=>a[Math.floor(Math.random()*a.length)];let busy=false;
   setInterval(()=>{
-    if(busy) return;
-
-    const totalWeight  = WEIGHT_BANNER + WEIGHT_PARA;
-    const pickBanner   = Math.random() < WEIGHT_BANNER / totalWeight;
-    const pool         = pickBanner ? bannerLetters : paraLetters;
-
-    if(pool.length === 0) return;
-
-    const letter = rand(pool);
-    const effect = rand(effects);
-
-    busy = true;
-    letter.classList.add(effect);
-
-    letter.addEventListener('animationend', ()=>{
-      letter.classList.remove(effect);
-      busy = false;
-    }, {once:true});
-
-  }, 700);
+    if(busy)return;
+    const pickBanner=Math.random()<WEIGHT_BANNER/(WEIGHT_BANNER+WEIGHT_PARA);
+    const pool=pickBanner?bannerLetters:paraLetters;if(!pool.length)return;
+    const letter=rand(pool),effect=rand(effects);
+    busy=true;letter.classList.add(effect);
+    letter.addEventListener('animationend',()=>{letter.classList.remove(effect);busy=false},{once:true})
+  },700)
 })();
 </script>
 </body>
