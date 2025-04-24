@@ -54,67 +54,61 @@ h1 span,p span{display:inline-block;isolation:isolate}
     linear-gradient(to right,#000 0 35%,transparent 100%) left/var(--bar) 100% no-repeat;
   mask-composite:add;
   -webkit-mask-composite:source-over;
-  filter:blur(24px) saturate(120%);
-  opacity:.6;
+  filter:blur(28px) saturate(120%);
+  opacity:.55;
   background:
     repeating-conic-gradient(from var(--angle,0deg),
       #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
-      #0a84ff 40 50deg,#bf5af2 50 60deg) center/500% 500% no-repeat,
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/550% 550% no-repeat,
     repeating-conic-gradient(from calc(var(--angle,0deg)+45deg),
       #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
-      #0a84ff 40 50deg,#bf5af2 50 60deg) center/500% 500% no-repeat;
-  animation:flow 28s linear infinite,spin 50s linear infinite,breathe 12s ease-in-out infinite
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/550% 550% no-repeat;
+  animation:borderFlow 26s linear infinite,borderSpin 50s linear infinite,breathe 12s ease-in-out infinite
 }
-@keyframes flow{0%{background-position:0% 0%,50% 50%}25%{background-position:100% 0%,150% -50%}50%{background-position:100% 100%,150% 50%}75%{background-position:0% 100%,50% 150%}100%{background-position:0% 0%,50% 50%}}
-@keyframes spin{to{--angle:360deg}}
+@keyframes borderFlow{0%{background-position:0% 0%,40% 60%}25%{background-position:100% 0%,140% -50%}50%{background-position:100% 100%,140% 50%}75%{background-position:0% 100%,40% 150%}100%{background-position:0% 0%,40% 60%}}
+@keyframes borderSpin{to{--angle:360deg}}
 @keyframes breathe{0%,100%{--bar:22px}50%{--bar:34px}}
 .char::after{
   content:'';
   position:absolute;
   inset:-6px;
-  max-width:2.5em;
-  max-height:2.5em;
+  max-width:2.4em;
+  max-height:2.4em;
   border-radius:50%;
   background:
     repeating-conic-gradient(from var(--angle,0deg),
       #ff375f 0 20deg,#fe9647 20 40deg,#ffe75a 40 60deg,#34c759 60 80deg,
-      #0a84ff 80 100deg,#bf5af2 100 120deg) center/300% 300% no-repeat,
+      #0a84ff 80 100deg,#bf5af2 100 120deg) center/320% 320% no-repeat,
     repeating-conic-gradient(from calc(var(--angle,0deg)+45deg),
       #ff375f 0 20deg,#fe9647 20 40deg,#ffe75a 40 60deg,#34c759 60 80deg,
-      #0a84ff 80 100deg,#bf5af2 100 120deg) center/300% 300% no-repeat;
+      #0a84ff 80 100deg,#bf5af2 100 120deg) center/320% 320% no-repeat;
   filter:blur(6px);
-  opacity:.55;
+  opacity:.5;
   z-index:-1;
-  animation:haloFlow 14s linear infinite,spin 40s linear infinite
+  animation:haloFlow 14s linear infinite,borderSpin 40s linear infinite
 }
 @keyframes haloFlow{0%{background-position:0% 0%,40% 60%}50%{background-position:100% 100%,140% 160%}100%{background-position:0% 0%,40% 60%}}
 </style>
 </head>
 <body>
 <div class="rainbow-frame" aria-hidden="true"></div>
-<h1 class="first" id="banner">George Barnes</h1>
+<h1 class="first" id="banner">George&nbsp;Barnes</h1>
 <p class="main" id="teaser">Launching once my degree is finished in June :)</p>
 <script>
 (()=>{
-  const WEIGHT_BANNER=1.25,WEIGHT_PARA=1,effects=['jump','flip'];
-  const bannerLetters=[],paraLetters=[];
-  function wrapText(id,arr){
-    const node=document.getElementById(id),txt=node.textContent;node.innerHTML='';
-    for(const ch of txt){
-      if(ch===' '){node.appendChild(document.createTextNode(' '));continue}
-      const span=document.createElement('span');span.classList.add('char');span.textContent=ch;
-      node.appendChild(span);arr.push(span)
-    }
+  const effects=['jump','flip'],banner=[],para=[];
+  function wrap(id,arr){
+    const node=document.getElementById(id),t=node.textContent;node.innerHTML='';
+    for(const ch of t){if(ch===' '){node.append(' ');continue}
+      const s=document.createElement('span');s.className='char';s.textContent=ch;node.append(s);arr.push(s)}
   }
-  wrapText('banner',bannerLetters);wrapText('teaser',paraLetters);
-  const rand=a=>a[Math.floor(Math.random()*a.length)];let busy=false;
+  wrap('banner',banner);wrap('teaser',para);
+  const pick=a=>a[Math.floor(Math.random()*a.length)];let busy=false;
   setInterval(()=>{
     if(busy)return;
-    const pool=Math.random()<WEIGHT_BANNER/(WEIGHT_BANNER+WEIGHT_PARA)?bannerLetters:paraLetters;
-    if(!pool.length)return;
-    const letter=rand(pool),effect=rand(effects);
-    busy=true;letter.classList.add(effect);
-    letter.addEventListener('animationend',()=>{letter.classList.remove(effect);busy=false},{once:true})
+    const pool=Math.random()<0.556?banner:para;if(!pool.length)return;
+    const el=pick(pool),fx=pick(effects);busy=true;el.classList.add(fx);
+    el.addEventListener('animationend',()=>{el.classList.remove(fx);busy=false},{once:true})
   },700)
 })();
 </script>
