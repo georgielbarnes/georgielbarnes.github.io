@@ -64,44 +64,56 @@ p span{display:inline-block}
 
 
 <script>
-(()=>{
-  const targets  = ['banner','teaser'];
-  const effects  = ['jump','flip'];
-  const letters  = [];
-  let   busy     = false;
+  (()=>{
+  const WEIGHT_BANNER = 1.25;
+  const WEIGHT_PARA   = 1;
+  const effects       = ['jump','flip'];
 
-  targets.forEach(id=>{
-    const node   = document.getElementById(id);
-    const text   = node.textContent;
+  const bannerLetters = [];
+  const paraLetters   = [];
+
+  function wrapText(id, collectorArray){
+    const node = document.getElementById(id);
+    const txt  = node.textContent;
     node.innerHTML = '';
 
-    for(const ch of text){
+    for(const ch of txt){
       if(ch === ' '){
         node.appendChild(document.createTextNode(' '));
-        continue;
+      }else{
+        const span = document.createElement('span');
+        span.textContent = ch;
+        node.appendChild(span);
+        collectorArray.push(span);
       }
-      const span = document.createElement('span');
-      span.textContent = ch;
-      node.appendChild(span);
-      letters.push(span);
     }
-  });
+  }
 
-  const rand = arr => arr[Math.floor(Math.random()*arr.length)];
+  wrapText('banner', bannerLetters);
+  wrapText('teaser', paraLetters);
+
+  const rand     = arr => arr[Math.floor(Math.random() * arr.length)];
+  let   busy     = false;
 
   setInterval(()=>{
     if(busy) return;
 
-    const letter = rand(letters);
+    const totalWeight  = WEIGHT_BANNER + WEIGHT_PARA;
+    const pickBanner   = Math.random() < WEIGHT_BANNER / totalWeight;
+    const pool         = pickBanner ? bannerLetters : paraLetters;
+
+    if(pool.length === 0) return;
+
+    const letter = rand(pool);
     const effect = rand(effects);
 
     busy = true;
     letter.classList.add(effect);
 
-    letter.addEventListener('animationend',()=>{
+    letter.addEventListener('animationend', ()=>{
       letter.classList.remove(effect);
       busy = false;
-    },{once:true});
+    }, {once:true});
 
   }, 700);
 })();
