@@ -61,15 +61,26 @@ p span{display:inline-block}
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:0;
+  z-index:0;                 
 }
 
 .rainbow-frame::before{
   content:'';
   position:absolute;
   inset:0;
-  padding:22px;
-  border-radius:16px;
+
+  --thickness:22px;
+  padding:var(--thickness);
+
+  mask:
+       linear-gradient(#000 0 0)  content-box,
+       radial-gradient(closest-side,transparent  0%, #000 75%) padding-box;
+  -webkit-mask-composite:xor;          
+          mask-composite:exclude;      
+
+  filter:blur(18px);
+
+  opacity:.5;
 
   background:
       conic-gradient(
@@ -80,29 +91,24 @@ p span{display:inline-block}
         #0a84ff 240deg 300deg,
         #bf5af2 300deg 360deg
       );
+  background-size:400% 400%;                
 
-  background-size:400% 400%;
-
-  mask:linear-gradient(#000 0 0) content-box,
-       linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-          mask-composite:exclude;
-
-  filter:blur(18px);
-  opacity:.45;
-
-  animation:flow 18s cubic-bezier(.45,.05,.55,.95) infinite;
+  animation:rainbowFlow 20s linear infinite,
+           rainbowPulse 12s ease-in-out   infinite;
 }
 
-@keyframes flow{
-  0%   {background-position:   0%   0%;}
-  25%  {background-position: 100%   0%;}
-  50%  {background-position: 100% 100%;}
-  75%  {background-position:   0% 100%;}
-  100% {background-position:   0%   0%;}
+@keyframes rainbowFlow{
+  0%   {background-position:  0%   0%;}
+  25%  {background-position:100%   0%;}
+  50%  {background-position:100% 100%;}
+  75%  {background-position:  0% 100%;}
+  100% {background-position:  0%   0%;}
 }
 
-
+@keyframes rainbowPulse{
+  0%,100%{background-size:400% 400%;}
+  50%    {background-size:500% 500%;}
+}
 </style>
 
 </head>
