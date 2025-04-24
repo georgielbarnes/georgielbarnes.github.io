@@ -4,7 +4,7 @@
 <style>
 body {
   background-image: 
-    linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)),
+    linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.20)),
     linear-gradient(135deg,rgba(0, 204, 255, .07),rgba(255, 0, 204, .07)),
     url('assets/background.png');
   background-repeat: no-repeat;
@@ -54,10 +54,54 @@ p span{display:inline-block}
 .flip{
   animation:flip 1s ease-in-out forwards;
 }
+
+
+.rainbow-frame{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+.rainbow-frame::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+
+  padding:18px;
+
+  background:
+      conic-gradient(
+        from 0deg,
+        #ff2d55 0deg   60deg,
+        #ff9500 60deg 120deg,
+        #ffcc00 120deg 180deg,
+        #34c759 180deg 240deg,
+        #0a84ff 240deg 300deg,
+        #bf5af2 300deg 360deg
+      );
+
+  mask:   linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+
+  opacity:.55;
+
+  animation:spin 10s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to  {transform:rotate(360deg);}
+}
+
 </style>
 
 </head>
 <body>
+<div class="rainbow-frame" aria-hidden="true"></div>
 
 <h1 class="first" id="banner">George Barnes</h1>
 
