@@ -95,20 +95,22 @@ p span{display:inline-block}
   opacity:.45;
 
   background:
-     conic-gradient(
-        #ff375f 0deg  60deg,
-        #fe9647 60deg 120deg,
-        #ffe75a 120deg 180deg,
-        #34c759 180deg 240deg,
-        #0a84ff 240deg 300deg,
-        #bf5af2 300deg 360deg)          center/600% 600% no-repeat,
-     conic-gradient(from 45deg,
-        #ff375f 0deg  60deg,
-        #fe9647 60deg 120deg,
-        #ffe75a 120deg 180deg,
-        #34c759 180deg 240deg,
-        #0a84ff 240deg 300deg,
-        #bf5af2 300deg 360deg)          center/600% 600% no-repeat;
+  repeating-conic-gradient(
+      from var(--angle,0deg),
+      #ff375f  0deg  20deg,
+      #fe9647 20deg  40deg,
+      #ffe75a 40deg  60deg,
+      #34c759 60deg  80deg,
+      #0a84ff 80deg 100deg,
+      #bf5af2 100deg 120deg)   center/600% 600% no-repeat,
+  repeating-conic-gradient(
+      from calc(var(--angle,0deg) + 45deg),
+      #ff375f  0deg  20deg,
+      #fe9647 20deg  40deg,
+      #ffe75a 40deg  60deg,
+      #34c759 60deg  80deg,
+      #0a84ff 80deg 100deg,
+      #bf5af2 100deg 120deg)   center/600% 600% no-repeat;
 
   animation:
       drift   28s   linear        infinite,
@@ -125,7 +127,7 @@ p span{display:inline-block}
 }
 
 @keyframes swirl{
-  to {transform:rotate(360deg);}
+  to{ --angle:360deg; }
 }
 
 @keyframes breathe{
