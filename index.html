@@ -48,25 +48,25 @@ h1 span,p span{display:inline-block;isolation:isolate}
   inset:0;
   padding:var(--bar);
   mask:
-    linear-gradient(to bottom,#000 0 40%,transparent 100%) top/100% var(--bar) no-repeat,
-    linear-gradient(to left,#000 0 40%,transparent 100%) right/var(--bar) 100% no-repeat,
-    linear-gradient(to top,#000 0 40%,transparent 100%) bottom/100% var(--bar) no-repeat,
-    linear-gradient(to right,#000 0 40%,transparent 100%) left/var(--bar) 100% no-repeat;
+    linear-gradient(to bottom,#000 0 35%,transparent 100%) top/100% var(--bar) no-repeat,
+    linear-gradient(to left,#000 0 35%,transparent 100%) right/var(--bar) 100% no-repeat,
+    linear-gradient(to top,#000 0 35%,transparent 100%) bottom/100% var(--bar) no-repeat,
+    linear-gradient(to right,#000 0 35%,transparent 100%) left/var(--bar) 100% no-repeat;
   mask-composite:add;
   -webkit-mask-composite:source-over;
-  filter:blur(32px) saturate(120%);
-  opacity:.45;
+  filter:blur(24px) saturate(120%);
+  opacity:.6;
   background:
     repeating-conic-gradient(from var(--angle,0deg),
       #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
-      #0a84ff 40 50deg,#bf5af2 50 60deg) center/600% 600% no-repeat,
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/500% 500% no-repeat,
     repeating-conic-gradient(from calc(var(--angle,0deg)+45deg),
       #ff375f 0 10deg,#fe9647 10 20deg,#ffe75a 20 30deg,#34c759 30 40deg,
-      #0a84ff 40 50deg,#bf5af2 50 60deg) center/600% 600% no-repeat;
-  animation:drift 28s linear infinite,swirl 60s linear infinite,breathe 12s ease-in-out infinite
+      #0a84ff 40 50deg,#bf5af2 50 60deg) center/500% 500% no-repeat;
+  animation:flow 28s linear infinite,spin 50s linear infinite,breathe 12s ease-in-out infinite
 }
-@keyframes drift{0%{background-position:0% 0%,40% 60%}25%{background-position:100% 0%,140% -50%}50%{background-position:100% 100%,140% 50%}75%{background-position:0% 100%,40% 150%}100%{background-position:0% 0%,40% 60%}}
-@keyframes swirl{to{--angle:360deg}}
+@keyframes flow{0%{background-position:0% 0%,50% 50%}25%{background-position:100% 0%,150% -50%}50%{background-position:100% 100%,150% 50%}75%{background-position:0% 100%,50% 150%}100%{background-position:0% 0%,50% 50%}}
+@keyframes spin{to{--angle:360deg}}
 @keyframes breathe{0%,100%{--bar:22px}50%{--bar:34px}}
 .char::after{
   content:'';
@@ -85,10 +85,9 @@ h1 span,p span{display:inline-block;isolation:isolate}
   filter:blur(6px);
   opacity:.55;
   z-index:-1;
-  animation:glowDrift 14s linear infinite,glowSpin 40s linear infinite
+  animation:haloFlow 14s linear infinite,spin 40s linear infinite
 }
-@keyframes glowDrift{0%{background-position:0% 0%,40% 60%}50%{background-position:100% 100%,140% 160%}100%{background-position:0% 0%,40% 60%}}
-@keyframes glowSpin{to{--angle:360deg}}
+@keyframes haloFlow{0%{background-position:0% 0%,40% 60%}50%{background-position:100% 100%,140% 160%}100%{background-position:0% 0%,40% 60%}}
 </style>
 </head>
 <body>
@@ -111,8 +110,8 @@ h1 span,p span{display:inline-block;isolation:isolate}
   const rand=a=>a[Math.floor(Math.random()*a.length)];let busy=false;
   setInterval(()=>{
     if(busy)return;
-    const pickBanner=Math.random()<WEIGHT_BANNER/(WEIGHT_BANNER+WEIGHT_PARA);
-    const pool=pickBanner?bannerLetters:paraLetters;if(!pool.length)return;
+    const pool=Math.random()<WEIGHT_BANNER/(WEIGHT_BANNER+WEIGHT_PARA)?bannerLetters:paraLetters;
+    if(!pool.length)return;
     const letter=rand(pool),effect=rand(effects);
     busy=true;letter.classList.add(effect);
     letter.addEventListener('animationend',()=>{letter.classList.remove(effect);busy=false},{once:true})
