@@ -33,8 +33,8 @@ p.main {
   user-select:none;
 }
 
-h1 span{display:inline-block}
-p span{display:inline-block}
+h1 span{display:inline-block; isolation:isolate;}
+p span{display:inline-block; isolation:isolate;}
 
 @keyframes jump{
   0%   {transform:translateY(0)}
@@ -133,6 +133,51 @@ p span{display:inline-block}
 @keyframes breathe{
   0%,100% {--bar:22px;}
   50%     {--bar:34px;}
+}
+
+
+h1 span::after,
+p  span::after{
+  content:'';
+  position:absolute;
+  inset:-6px;               
+  border-radius:50%;        
+
+  background:
+     repeating-conic-gradient(
+        from var(--angle,0deg),
+        #ff375f  0deg  20deg,
+        #fe9647 20deg  40deg,
+        #ffe75a 40deg  60deg,
+        #34c759 60deg  80deg,
+        #0a84ff 80deg 100deg,
+        #bf5af2 100deg 120deg) center/300% 300% no-repeat,
+     repeating-conic-gradient(
+        from calc(var(--angle,0deg) + 45deg),
+        #ff375f  0deg  20deg,
+        #fe9647 20deg  40deg,
+        #ffe75a 40deg  60deg,
+        #34c759 60deg  80deg,
+        #0a84ff 80deg 100deg,
+        #bf5af2 100deg 120deg) center/300% 300% no-repeat;
+
+  filter:blur(6px);         
+  opacity:.55;              
+  z-index:-1;               
+
+  animation:
+      glowDrift 14s linear        infinite,
+      glowSpin  40s linear        infinite;
+}
+
+@keyframes glowDrift{
+  0%   {background-position: 0% 0%, 40% 60%;}
+  50%  {background-position:100% 100%, 140% 160%;}
+  100% {background-position: 0% 0%, 40% 60%;}
+}
+
+@keyframes glowSpin{
+  to{ --angle:360deg; }
 }
 
 </style>
