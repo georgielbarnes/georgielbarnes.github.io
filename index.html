@@ -28,14 +28,64 @@ p.main {
   font-size: 32px;
   text-align: center;
 }
+
+h1 span{display:inline-block}
+
+@keyframes jump{
+  0%   {transform:translateY(0)}
+  30%  {transform:translateY(-25%)}
+  60%  {transform:translateY(10%)}
+  100% {transform:translateY(0)}
+}
+.jump{
+  animation:jump .6s cubic-bezier(.25,.75,.5,1) forwards;
+}
+
+@keyframes flip{
+  0%   {transform:rotateY(0)}
+  30%  {transform:rotateY(180deg)}
+  60%  {transform:rotateY(360deg)}
+  100% {transform:rotateY(360deg)}
+}
+.flip{
+  animation:flip .8s ease-in-out forwards;
+}
 </style>
 
 </head>
 <body>
 
-<h1 class="first">George Barnes</h1>
+<h1 class="first" id="banner">George Barnes</h1>
 
 <p class="main">Launching once my degree is finished in June :)</p>
 
+
+<script>
+(function(){
+  const banner    = document.getElementById('banner');
+  const text      = banner.textContent;
+  const letters   = [];
+
+  banner.innerHTML = '';
+  for(const ch of text){
+    const span = document.createElement('span');
+    span.textContent = ch;
+    banner.appendChild(span);
+    letters.push(span);
+  }
+
+  const rand = arr => arr[Math.floor(Math.random()*arr.length)];
+
+  setInterval(()=>{
+    const letter = rand(letters);
+    const effect = Math.random()<0.5 ? 'jump' : 'flip';
+
+    if(letter.classList.contains('jump')||letter.classList.contains('flip')) return;
+
+    letter.classList.add(effect);
+    letter.addEventListener('animationend', ()=>letter.classList.remove(effect), {once:true});
+  }, 600);
+})();
+</script>
 </body>
 </html>
