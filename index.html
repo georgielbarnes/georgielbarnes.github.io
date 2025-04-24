@@ -20,7 +20,6 @@ h1.first {
   text-transform: uppercase;
   text-align: center;
   user-select:none;
-  display:inline-block;
 }
 p.main {
   padding-top: 25%;
@@ -30,7 +29,6 @@ p.main {
   font-size: 32px;
   text-align: center;
   user-select:none;
-  display:inline-block;
 }
 
 h1 span{display:inline-block}
@@ -62,24 +60,29 @@ p span{display:inline-block}
 
 <h1 class="first" id="banner">George Barnes</h1>
 
-<p class="main" id="text">Launching once my degree is finished in June :)</p>
+<p class="main" id="teaser">Launching once my degree is finished in June :)</p>
 
 
 <script>
-(function(){
-  const ids      = ['banner','text'];
+(()=>{
+  const targets  = ['banner','teaser'];
   const effects  = ['jump','spin'];
   const letters  = [];
   let   busy     = false;
 
-  ids.forEach(id=>{
-    const el      = document.getElementById(id);
-    const content = el.textContent;
-    el.innerHTML  = '';
-    for(const ch of content){
+  targets.forEach(id=>{
+    const node   = document.getElementById(id);
+    const text   = node.textContent;
+    node.innerHTML = '';
+
+    for(const ch of text){
+      if(ch === ' '){
+        node.appendChild(document.createTextNode(' '));
+        continue;
+      }
       const span = document.createElement('span');
       span.textContent = ch;
-      el.appendChild(span);
+      node.appendChild(span);
       letters.push(span);
     }
   });
@@ -88,15 +91,18 @@ p span{display:inline-block}
 
   setInterval(()=>{
     if(busy) return;
+
     const letter = rand(letters);
     const effect = rand(effects);
 
     busy = true;
     letter.classList.add(effect);
+
     letter.addEventListener('animationend',()=>{
       letter.classList.remove(effect);
       busy = false;
     },{once:true});
+
   }, 700);
 })();
 </script>
