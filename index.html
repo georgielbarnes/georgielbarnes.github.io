@@ -13,7 +13,7 @@ body {
 }
 h1.first {
   padding-top: 10%;
-  color: black;
+  color: white;
   font-family: GD Sherpa,Montserrat,sans-serif;
   font-weight: 900;
   letter-spacing: .12em;
@@ -24,7 +24,8 @@ h1.first {
 }
 p.main {
   padding-top: 25%;
-  color:#6d6d6d;
+  /*color:#6d6d6d;*/
+  color: white;
   font-weight: 400;
   font-family: GD Sage,Playfair Display,Georgia,serif;
   font-size: 32px;
@@ -67,35 +68,40 @@ p span{display:inline-block}
   content:'';
   position:absolute;
   inset:0;
-  border-radius:12px;
-
-  padding:18px;
+  padding:22px;
+  border-radius:16px;
 
   background:
       conic-gradient(
-        from 0deg,
         #ff2d55 0deg   60deg,
-        #ff9500 60deg 120deg,
-        #ffcc00 120deg 180deg,
-        #34c759 180deg 240deg,
+        #ff9f0a 60deg  120deg,
+        #ffd60a 120deg 180deg,
+        #32d74b 180deg 240deg,
         #0a84ff 240deg 300deg,
         #bf5af2 300deg 360deg
       );
 
-  mask:   linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
+  background-size:400% 400%;
+
+  mask:linear-gradient(#000 0 0) content-box,
+       linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask-composite:exclude;
 
-  opacity:.55;
+  filter:blur(18px);
+  opacity:.45;
 
-  animation:spin 10s linear infinite;
+  animation:flow 18s cubic-bezier(.45,.05,.55,.95) infinite;
 }
 
-@keyframes spin{
-  from{transform:rotate(0deg);}
-  to  {transform:rotate(360deg);}
+@keyframes flow{
+  0%   {background-position:   0%   0%;}
+  25%  {background-position: 100%   0%;}
+  50%  {background-position: 100% 100%;}
+  75%  {background-position:   0% 100%;}
+  100% {background-position:   0%   0%;}
 }
+
 
 </style>
 
